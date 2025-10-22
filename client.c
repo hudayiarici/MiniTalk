@@ -6,11 +6,29 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:30:54 by harici            #+#    #+#             */
-/*   Updated: 2025/10/22 19:39:19 by harici           ###   ########.fr       */
+/*   Updated: 2025/10/22 20:44:35 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
+
+static volatile sig_atomic_t	g_received = 0;
+
+static void	ack_handler(int sig)
+{
+	(void)sig;
+	g_received = 1;
+}
+
+static int	wait_for_ack(void)
+{
+	int	timeout;
+
+	timeout = 0;
+	while (!g_received && timeout++ < 1000)
+		usleep(100);
+	return (timeout >= 1000);
+}
 
 static int	send_char(int server_pid, char c)
 {
@@ -19,17 +37,13 @@ static int	send_char(int server_pid, char c)
 	bit = 0;
 	while (bit < 8)
 	{
+		g_received = 0;
 		if (c & (1 << bit))
-		{
-			if (kill(server_pid, SIGUSR2) == -1)
-				return (-1);
-		}
+			kill(server_pid, SIGUSR2);
 		else
-		{
-			if (kill(server_pid, SIGUSR1) == -1)
-				return (-1);
-		}
-		usleep(200);
+			kill(server_pid, SIGUSR1);
+		if (wait_for_ack())
+			return (-1);
 		bit++;
 	}
 	return (0);
@@ -37,14 +51,20 @@ static int	send_char(int server_pid, char c)
 
 int	main(int argc, char **argv)
 {
-	int	server_pid;
-	int	i;
+	int					server_pid;
+	int					i;
+	struct sigaction	sa;
 
 	if (argc != 3)
 		return (write(2, "Usage: ./client [PID] [message]\n", 33), 1);
 	server_pid = ft_atoi(argv[1]);
 	if (server_pid <= 0)
 		return (write(2, "Error: Invalid PID\n", 20), 1);
+	sa.sa_handler = ack_handler;
+	sa.sa_flags = SA_RESTART;
+	sigemptyset(&sa.sa_mask);
+	if (sigaction(SIGUSR1, &sa, NULL) == -1)
+		return (write(2, "Error: Failed to set signal handler\n", 37), 1);
 	i = 0;
 	while (argv[2][i])
 	{
@@ -53,5 +73,6 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	send_char(server_pid, '\n');
+	write(1, "Message sent successfully!\n", 27);
 	return (0);
 }
