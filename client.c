@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:30:54 by harici            #+#    #+#             */
-/*   Updated: 2025/10/22 19:30:19 by harici           ###   ########.fr       */
+/*   Updated: 2025/10/22 19:39:19 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	send_char(int server_pid, char c)
 			if (kill(server_pid, SIGUSR1) == -1)
 				return (-1);
 		}
-		usleep(542);
+		usleep(200);
 		bit++;
 	}
 	return (0);
