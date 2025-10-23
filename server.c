@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:07:19 by harici            #+#    #+#             */
-/*   Updated: 2025/10/22 20:34:26 by harici           ###   ########.fr       */
+/*   Updated: 2025/10/23 23:54:59 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	signal_handler(int sig, siginfo_t *info, void *context)
 	static unsigned char	c = 0;
 
 	(void)context;
-	(void)info;
 	if (sig == SIGUSR2)
 		c |= (1 << bit);
 	bit++;
