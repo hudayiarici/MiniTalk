@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:30:54 by harici            #+#    #+#             */
-/*   Updated: 2025/10/22 20:44:35 by harici           ###   ########.fr       */
+/*   Updated: 2025/10/24 20:43:05 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int	wait_for_ack(void)
 	int	timeout;
 
 	timeout = 0;
-	while (!g_received && timeout++ < 1000)
-		usleep(100);
-	return (timeout >= 1000);
+	while (!g_received && timeout++ < 100)
+		usleep(10);
+	return (timeout >= 100);
 }
 
 static int	send_char(int server_pid, char c)

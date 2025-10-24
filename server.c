@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:07:19 by harici            #+#    #+#             */
-/*   Updated: 2025/10/23 23:54:59 by harici           ###   ########.fr       */
+/*   Updated: 2025/10/24 20:44:52 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ static void	signal_handler(int sig, siginfo_t *info, void *context)
 		bit = 0;
 		c = 0;
 	}
-	usleep(100);
 	kill(info->si_pid, SIGUSR1);
 }
 
