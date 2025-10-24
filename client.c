@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:30:54 by harici            #+#    #+#             */
-/*   Updated: 2025/10/24 20:43:05 by harici           ###   ########.fr       */
+/*   Updated: 2025/10/24 21:00:34 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int argc, char **argv)
 	sa.sa_handler = ack_handler;
 	sa.sa_flags = SA_RESTART;
 	sigemptyset(&sa.sa_mask);
+	sigaddset(&sa.sa_mask, SIGUSR1);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1)
 		return (write(2, "Error: Failed to set signal handler\n", 37), 1);
 	i = 0;
