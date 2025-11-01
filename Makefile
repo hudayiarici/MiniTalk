@@ -6,7 +6,7 @@
 #    By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 14:40:07 by harici            #+#    #+#              #
-#    Updated: 2025/10/24 21:13:04 by harici           ###   ########.fr        #
+#    Updated: 2025/11/02 01:51:45 by harici           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,4 +63,4 @@ fclean: clean
 # Rebuild
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean re
