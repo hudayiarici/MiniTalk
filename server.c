@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:07:19 by harici            #+#    #+#             */
-/*   Updated: 2025/10/24 21:37:12 by harici           ###   ########.fr       */
+/*   Updated: 2025/11/02 02:30:08 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static t_client	g_client = {0, 0, 0};
 static void	signal_handler(int sig, siginfo_t *info, void *context)
 {
 	(void)context;
+	if (sig != SIGUSR1 && sig != SIGUSR2)
+		return ;
 	if (g_client.pid == 0)
 		g_client.pid = info->si_pid;
 	if (g_client.pid != info->si_pid)
@@ -51,7 +53,7 @@ int	main(void)
 	sigaddset(&sa.sa_mask, SIGUSR1);
 	sigaddset(&sa.sa_mask, SIGUSR2);
 	if (sigaction(SIGUSR1, &sa, NULL) == -1
-		||sigaction(SIGUSR2, &sa, NULL) == -1)
+		|| sigaction(SIGUSR2, &sa, NULL) == -1)
 	{
 		write(2, "Error: Failed to set signal handler\n", 37);
 		return (1);
