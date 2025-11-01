@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 21:12:28 by harici            #+#    #+#             */
-/*   Updated: 2025/11/02 02:00:50 by harici           ###   ########.fr       */
+/*   Updated: 2025/11/02 02:33:05 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ static void	signal_handler(int sig, siginfo_t *info, void *context)
 	}
 	if (sig == SIGUSR2)
 		g_client.c |= (1 << g_client.bit);
-	g_client.bit++;
+	if (sig == SIGUSR1 || sig == SIGUSR2)
+		g_client.bit++;
 	if (g_client.bit == 8)
 	{
 		if (g_client.c == '\n')
