@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 21:12:28 by harici            #+#    #+#             */
-/*   Updated: 2025/11/02 02:33:05 by harici           ###   ########.fr       */
+/*   Updated: 2025/11/02 02:58:48 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	main(void)
 	ft_putnbr_fd((int)getpid(), 1);
 	ft_putstr_fd("\n", 1);
 	sa.sa_sigaction = signal_handler;
-	sa.sa_flags = SA_SIGINFO | SA_RESTART;
+	sa.sa_flags = SA_SIGINFO;
 	sigemptyset(&sa.sa_mask);
 	sigaddset(&sa.sa_mask, SIGUSR1);
 	sigaddset(&sa.sa_mask, SIGUSR2);
