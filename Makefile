@@ -6,7 +6,7 @@
 #    By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/10/22 14:40:07 by harici            #+#    #+#              #
-#    Updated: 2025/11/02 01:51:45 by harici           ###   ########.fr        #
+#    Updated: 2025/11/02 17:39:23 by harici           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,8 +24,8 @@ OBJ_SERVER = $(SRC_SERVER:.c=.o)
 OBJ_CLIENT = $(SRC_CLIENT:.c=.o)
 
 # Bonus files
-SRC_SERVER_BONUS = server_bonus.c utils.c
-SRC_CLIENT_BONUS = client_bonus.c utils.c
+SRC_SERVER_BONUS = server_bonus.c utils_bonus.c
+SRC_CLIENT_BONUS = client_bonus.c utils_bonus.c
 
 OBJ_SERVER_BONUS = $(SRC_SERVER_BONUS:.c=.o)
 OBJ_CLIENT_BONUS = $(SRC_CLIENT_BONUS:.c=.o)

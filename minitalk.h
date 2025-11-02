@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 14:41:31 by harici            #+#    #+#             */
-/*   Updated: 2025/10/24 20:51:40 by harici           ###   ########.fr       */
+/*   Updated: 2025/11/02 16:28:32 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,6 @@
 
 # include <signal.h>
 # include <unistd.h>
-
-typedef struct s_client
-{
-	pid_t			pid;
-	int				bit;
-	unsigned char	c;
-}					t_client;
 
 /* Utils Functions */
 void	ft_putstr_fd(char *s, int fd);

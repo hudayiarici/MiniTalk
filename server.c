@@ -6,37 +6,37 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:07:19 by harici            #+#    #+#             */
-/*   Updated: 2025/11/02 02:30:08 by harici           ###   ########.fr       */
+/*   Updated: 2025/11/02 17:48:50 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static t_client	g_client = {0, 0, 0};
-
 static void	signal_handler(int sig, siginfo_t *info, void *context)
 {
+	static pid_t			pid = 0;
+	static char				c = 0;
+	static int				bit = 0;
+
 	(void)context;
-	if (sig != SIGUSR1 && sig != SIGUSR2)
-		return ;
-	if (g_client.pid == 0)
-		g_client.pid = info->si_pid;
-	if (g_client.pid != info->si_pid)
+	if (pid == 0)
+		pid = info->si_pid;
+	if (pid != info->si_pid || (sig != SIGUSR1 && sig != SIGUSR2))
 		return ;
 	if (sig == SIGUSR2)
-		g_client.c |= (1 << g_client.bit);
-	g_client.bit++;
-	if (g_client.bit == 8)
+		c |= (1 << bit);
+	bit++;
+	if (bit == 8)
 	{
-		if (g_client.c == '\n')
+		if (c == '\n')
 		{
 			write(1, "\n", 1);
-			g_client.pid = 0;
+			pid = 0;
 		}
 		else
-			write(1, &g_client.c, 1);
-		g_client.bit = 0;
-		g_client.c = 0;
+			write(1, &c, 1);
+		bit = 0;
+		c = 0;
 	}
 }
 

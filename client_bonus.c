@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/24 21:12:31 by harici            #+#    #+#             */
-/*   Updated: 2025/11/02 01:55:48 by harici           ###   ########.fr       */
+/*   Updated: 2025/11/02 18:00:22 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,15 @@ static int	send_char(int server_pid, char c)
 	{
 		g_received = 0;
 		if (c & (1 << bit))
-			kill(server_pid, SIGUSR2);
+		{
+			if (kill(server_pid, SIGUSR2) == -1)
+				return (-1);
+		}
 		else
-			kill(server_pid, SIGUSR1);
+		{
+			if (kill(server_pid, SIGUSR1) == -1)
+				return (-1);
+		}
 		if (wait_for_ack())
 			return (-1);
 		bit++;
@@ -74,6 +80,5 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	send_char(server_pid, '\n');
-	write(1, "Message sent successfully!\n", 27);
 	return (0);
 }

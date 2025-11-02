@@ -6,7 +6,7 @@
 /*   By: harici <harici@student.42istanbul.com.t    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/22 08:30:54 by harici            #+#    #+#             */
-/*   Updated: 2025/11/02 02:14:22 by harici           ###   ########.fr       */
+/*   Updated: 2025/11/02 17:33:04 by harici           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,22 @@ static void	send_char(int server_pid, char c)
 	while (bit < 8)
 	{
 		if (c & (1 << bit))
-			kill(server_pid, SIGUSR2);
+		{
+			if (kill(server_pid, SIGUSR2) == -1)
+			{
+				write(2, "Error: Failed to send signal\n", 30);
+				return ;
+			}
+		}
 		else
-			kill(server_pid, SIGUSR1);
-		usleep(442);
+		{
+			if (kill(server_pid, SIGUSR1) == -1)
+			{
+				write(2, "Error: Failed to send signal\n", 30);
+				return ;
+			}
+		}
+		usleep(1000);
 		bit++;
 	}
 }
